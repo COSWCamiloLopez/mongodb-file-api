@@ -1,5 +1,6 @@
 package com.eci.cosw.springbootsecureapi.service;
 
+import com.eci.cosw.springbootsecureapi.model.File;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -21,5 +22,10 @@ public class FileServiceImpl implements FileService {
         GridFsResource resource = gridFsTemplate.getResource(file.getFilename());
 
         return resource;
+    }
+
+    @Override
+    public void create(File file) {
+        gridFsTemplate.store(file.getContent(), file.getName(), file.getType());
     }
 }
