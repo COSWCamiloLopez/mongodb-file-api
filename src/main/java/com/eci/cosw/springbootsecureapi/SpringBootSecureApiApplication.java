@@ -21,10 +21,7 @@ import java.net.URL;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-public class SpringBootSecureApiApplication implements CommandLineRunner {
-
-    @Autowired
-    GridFsTemplate gridFsTemplate;
+public class SpringBootSecureApiApplication {
 
     @Bean
     public FilterRegistrationBean jwtFilter() {
@@ -41,12 +38,5 @@ public class SpringBootSecureApiApplication implements CommandLineRunner {
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfiguration.class);
         MongoOperations mongoOperation = (MongoOperations) applicationContext.getBean("mongoTemplate");
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        GridFSFile file = gridFsTemplate.findOne(new Query().addCriteria(Criteria.where("filename").is("testing.png")));
-        URL url = new URL("https://i.dailymail.co.uk/i/pix/tm/2007/07/lionking1807_468x325._to_468x312jpeg");
-        gridFsTemplate.store(url.openStream(), "lion.jpeg", "image/jpeg");
     }
 }
