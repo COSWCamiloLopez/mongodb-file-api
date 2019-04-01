@@ -1,5 +1,6 @@
 package com.eci.cosw.springbootsecureapi.controller;
 
+import com.eci.cosw.springbootsecureapi.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -19,18 +20,14 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 public class FileController {
 
     @Autowired
-    GridFsTemplate gridFsTemplate;
-
-    @Autowired
-    MongoTemplate mongoTemplate;
+    FileService fileService;
 
     @GetMapping("name/{filename}")
     @ResponseBody
-    public ResponseEntity<?> getByName(@PathVariable("name") String filename) {
+    public ResponseEntity<?> getByName(@PathVariable("filename") String filename) {
         try {
-            GridFSFile file = gridFsTemplate.findOne(new Query().addCriteria(Criteria.where("filename").is(filename)));
 
-            GridFsResource resource = gridFsTemplate.getResource(file.getFilename());
+            GridFsResource resource = fileService.getByName(filename);
 
             return ResponseEntity.ok()
                     .contentType(MediaType.valueOf(resource.getContentType()))
