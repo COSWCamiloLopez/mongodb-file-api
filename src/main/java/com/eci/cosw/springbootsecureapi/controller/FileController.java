@@ -1,19 +1,17 @@
 package com.eci.cosw.springbootsecureapi.controller;
 
-import com.eci.cosw.springbootsecureapi.model.File;
 import com.eci.cosw.springbootsecureapi.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.mongodb.core.query.Query;
-import com.mongodb.client.gridfs.model.GridFSFile;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin("*")
@@ -40,13 +38,9 @@ public class FileController {
     }
 
     @PostMapping("new")
-    public ResponseEntity<?> create(@RequestBody File file) {
-        try {
-            fileService.create(file);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @ResponseBody
+    public String create(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+        return fileService.create(file);
     }
 
 }

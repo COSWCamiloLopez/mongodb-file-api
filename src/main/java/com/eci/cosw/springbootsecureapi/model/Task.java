@@ -1,6 +1,7 @@
 package com.eci.cosw.springbootsecureapi.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -17,8 +18,18 @@ public class Task {
     private String responsible;
     private String status;
     private Date dueDate;
+    private String file;
 
     public Task() {
+    }
+
+    public Task(String owner, String description, String responsible, String status, Date dueDate, String file) {
+        this.owner = owner;
+        this.description = description;
+        this.responsible = responsible;
+        this.status = status;
+        this.dueDate = dueDate;
+        this.file = file;
     }
 
     public Task(String owner, String description, String responsible, String status, Date dueDate) {
@@ -71,5 +82,18 @@ public class Task {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    @Override
+    public String toString() {
+        return ("Task: {file: " + file + "}");
     }
 }
