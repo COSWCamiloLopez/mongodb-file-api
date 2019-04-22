@@ -1,7 +1,6 @@
 package com.eci.cosw.springbootsecureapi.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
