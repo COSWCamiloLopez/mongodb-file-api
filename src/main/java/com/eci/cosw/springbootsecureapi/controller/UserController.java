@@ -43,7 +43,7 @@ public class UserController {
     @GetMapping("email/{email}")
     @ResponseBody
     public User getUserByEmail(@PathVariable("email") String email) throws ServletException {
-        if (userService.findUserByUsername(email) != null) {
+        if (userService.findUserByEmail(email) != null) {
             return userService.findUserByEmail(email);
         } else {
             throw new ServletException("Doesn't exist an user whit this email");
